@@ -23,8 +23,8 @@
 1. In the root folder create a new file called `.env`
 1. Copy+Paste the following (changing the placeholder to your API Key)
    ```
-   USERNAME="kirbycope"
-   ACCESS_KEY="0123456789"
+   SAUCE_USERNAME="kirbycope"
+   SAUCE_ACCESS_KEY="0123456789"
    ```
 1. Save
 
