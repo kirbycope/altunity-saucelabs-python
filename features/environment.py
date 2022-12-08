@@ -27,18 +27,16 @@ def end_session():
 
 def start_session():
     caps = {}
-    caps['platformName'] = "Android"
-    caps['appium:deviceName'] = "Android GoogleAPI Emulator"
-    caps['appium:deviceOrientation'] = "portrait"
-    caps['appium:platformVersion'] = "12.0"
-    caps['appium:automationName'] = "UiAutomator2"
-    caps['appium:app'] = "storage:filename=trashcat.apk"
+    caps['platformName'] = 'Android'
+    caps['appium:app'] = 'storage:filename=trashcat.apk'
+    caps['appium:deviceName'] = 'Samsung Galaxy S8'
+    caps['appium:automationName'] = 'UiAutomator2'
     caps['sauce:options'] = {}
     caps['sauce:options']['build'] = '<your build id>'
     caps['sauce:options']['name'] = '<your test name>'
     username = test_data.from_env("SAUCE_USERNAME")
     access_key = test_data.from_env("SAUCE_ACCESS_KEY")
-    url = f'https://{username}:{access_key}@ondemand.us-west-1.saucelabs.com:443/wd/hub';
+    url = f'https://{username}:{access_key}@ondemand.us-west-1.saucelabs.com:443/wd/hub'
     driver = webdriver.Remote(url, caps)
     AltUnityPortForwarding.forward_android()
     test_data.altUnityDriver = AltUnityDriver()
