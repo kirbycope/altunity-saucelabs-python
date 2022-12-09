@@ -1,6 +1,7 @@
 from altunityrunner import *
 from datetime import timedelta
 from selenium import webdriver
+import os
 import time
 import test_data
 
@@ -23,13 +24,17 @@ def end_session():
     if test_data.altUnityDriver != None:
         test_data.altUnityDriver.stop()
         AltUnityPortForwarding.remove_forward_android()
-
+    username = test_data.from_env("SAUCE_USERNAME")
+    access_key = test_data.from_env("SAUCE_ACCESS_KEY")
+    disconnect_session = f"java -jar {test_data.sauce_jar} disconnect --sessionId {test_data.sauce_session_id}"
+    os.system(disconnect_session)
+    os.system("adb disconnect localhost:7000")
 
 def start_session():
     caps = {}
     caps['platformName'] = 'Android'
     caps['appium:app'] = 'storage:filename=trashcat.apk'
-    caps['appium:deviceName'] = 'Samsung Galaxy S8'
+    caps['appium:deviceName'] = 'Samsung_Galaxy_S8_POC144'
     caps['appium:automationName'] = 'UiAutomator2'
     caps['sauce:options'] = {}
     caps['sauce:options']['build'] = '<your build id>'
@@ -37,6 +42,19 @@ def start_session():
     username = test_data.from_env("SAUCE_USERNAME")
     access_key = test_data.from_env("SAUCE_ACCESS_KEY")
     url = f'https://{username}:{access_key}@ondemand.us-west-1.saucelabs.com:443/wd/hub'
-    driver = webdriver.Remote(url, caps)
+    print("Starting Appium WebDriver...")
+    test_data.driver = webdriver.Remote(url, caps)
+    print("Session ID: " + test_data.driver.session_id)
+    print("Connecting to session")
+    test_data.sauce_jar = "C:\\Users\\kirby\\altunity-saucelabs-python\\virtual-usb-client-2.0.3.jar"
+    get_sessions = f"java -jar {test_data.sauce_jar} sessions --username {username} --accessKey {access_key}"
+    sessions = os.popen(get_sessions).read()
+    test_data.sauce_session_id = sessions.split("\n")[2].split()[0]
+    connect_session = f"java -jar {test_data.sauce_jar} connect --sessionId {test_data.sauce_session_id} --username {username} --accessKey {access_key}"
+    os.system(connect_session)
+    os.system("adb connect localhost:7000")
+    print("Connected.")
+    print("Forwaring port for AltUnity...")
     AltUnityPortForwarding.forward_android()
     test_data.altUnityDriver = AltUnityDriver()
+    print("Forwarded.")
