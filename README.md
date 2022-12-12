@@ -1,4 +1,4 @@
-# altunty-saucelabs-python
+# altunity-saucelabs-python
 [AltUnity](https://altom.gitlab.io/altunity/altunitytester) enables UI test automation, by instrumenting games to get access and programmatically control the Unity objects.</br>
 [SauceLabs](https://saucelabs.com/) is an American cloud-hosted, web and mobile application automated testing platform company based in San Francisco, California.</br>
 [Python](https://www.python.org/) is an interpreted high-level general-purpose programming language.
