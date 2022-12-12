@@ -22,7 +22,7 @@
 1. Install dependencies noted in [requirements.txt](/requirements.txt)
    * In the integrated terminal run `pip3 install -r requirements.txt`
 1. In the root folder create a new file called `.env`
-1. Copy+Paste the following (changing the placeholder to your API Key)
+1. Copy+Paste the following (changing the placeholder values)
    ```
    SAUCE_USERNAME="kirbycope"
    SAUCE_ACCESS_KEY="0123456789"
