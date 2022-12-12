@@ -17,6 +17,7 @@
 
 ## Getting Started
 1. Install [Python3](https://www.python.org/downloads/)
+1. Download [Virtual USB](https://docs.saucelabs.com/mobile-apps/features/virtual-usb/#download-client)
 1. Open the [integrated terminal](https://code.visualstudio.com/docs/editor/integrated-terminal)
 1. Install dependencies noted in [requirements.txt](/requirements.txt)
    * In the integrated terminal run `pip3 install -r requirements.txt`
