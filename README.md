@@ -25,6 +25,7 @@
    ```
    SAUCE_USERNAME="kirbycope"
    SAUCE_ACCESS_KEY="0123456789"
+   SAUCE_VUSB_JAR="/virtual-usb-client.jar"
    ```
 1. Save
 
