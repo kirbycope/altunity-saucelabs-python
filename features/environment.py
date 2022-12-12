@@ -45,7 +45,7 @@ def start_session():
     test_data.driver = webdriver.Remote(url, caps)
     print("Session ID: " + test_data.driver.session_id)
     print("Connecting to Sauce Labs session...")
-    test_data.sauce_jar = "C:\\Users\\kirby\\altunity-saucelabs-python\\virtual-usb-client-2.0.3.jar"
+    test_data.sauce_jar = test_data.from_env("SAUCE_VUSB_JAR")
     start_vusb = f"java -jar {test_data.sauce_jar} server --datacenter US"
     os.popen(start_vusb)
     get_sessions = f"java -jar {test_data.sauce_jar} sessions --username {username} --accessKey {access_key}"
