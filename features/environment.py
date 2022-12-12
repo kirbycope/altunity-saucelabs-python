@@ -24,11 +24,10 @@ def end_session():
     if test_data.altUnityDriver != None:
         test_data.altUnityDriver.stop()
         AltUnityPortForwarding.remove_forward_android()
-    username = test_data.from_env("SAUCE_USERNAME")
-    access_key = test_data.from_env("SAUCE_ACCESS_KEY")
     disconnect_session = f"java -jar {test_data.sauce_jar} disconnect --sessionId {test_data.sauce_session_id}"
     os.system(disconnect_session)
-    os.system("adb disconnect localhost:7000")
+    os.system("adb disconnect localhost:7001")
+
 
 def start_session():
     caps = {}
@@ -45,15 +44,17 @@ def start_session():
     print("Starting Appium WebDriver...")
     test_data.driver = webdriver.Remote(url, caps)
     print("Session ID: " + test_data.driver.session_id)
-    print("Connecting to session")
+    print("Connecting to Sauce Labs session...")
     test_data.sauce_jar = "C:\\Users\\kirby\\altunity-saucelabs-python\\virtual-usb-client-2.0.3.jar"
+    start_vusb = f"java -jar {test_data.sauce_jar} server --datacenter US"
+    os.popen(start_vusb)
     get_sessions = f"java -jar {test_data.sauce_jar} sessions --username {username} --accessKey {access_key}"
     sessions = os.popen(get_sessions).read()
     test_data.sauce_session_id = sessions.split("\n")[2].split()[0]
     connect_session = f"java -jar {test_data.sauce_jar} connect --sessionId {test_data.sauce_session_id} --username {username} --accessKey {access_key}"
     os.system(connect_session)
-    os.system("adb connect localhost:7000")
-    print("Connected.")
+    os.system("adb connect localhost:7001")
+    print("Sauce Session ID: " + test_data.sauce_session_id)
     print("Forwaring port for AltUnity...")
     AltUnityPortForwarding.forward_android()
     test_data.altUnityDriver = AltUnityDriver()
