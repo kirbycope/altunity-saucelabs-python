@@ -26,7 +26,7 @@ def end_session():
         AltUnityPortForwarding.remove_forward_android()
     disconnect_session = f"java -jar {test_data.sauce_jar} disconnect --sessionId {test_data.sauce_session_id}"
     os.system(disconnect_session)
-    os.system("adb disconnect localhost:7001")
+    os.system("adb disconnect localhost:7000")
 
 
 def start_session():
@@ -53,7 +53,7 @@ def start_session():
     test_data.sauce_session_id = sessions.split("\n")[2].split()[0]
     connect_session = f"java -jar {test_data.sauce_jar} connect --sessionId {test_data.sauce_session_id} --username {username} --accessKey {access_key}"
     os.system(connect_session)
-    os.system("adb connect localhost:7001")
+    os.system("adb connect localhost:7000")
     print("Sauce Session ID: " + test_data.sauce_session_id)
     print("Forwaring port for AltUnity...")
     AltUnityPortForwarding.forward_android()
